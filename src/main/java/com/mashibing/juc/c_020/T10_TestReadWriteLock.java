@@ -24,6 +24,7 @@ public class T10_TestReadWriteLock {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
+            System.out.println("read final!");
             lock.unlock();
         }
     }
@@ -42,20 +43,41 @@ public class T10_TestReadWriteLock {
         }
     }
 
-
-
-
-
     public static void main(String[] args) {
-        //Runnable readR = ()-> read(lock);
-        Runnable readR = ()-> read(readLock);
+//        //Runnable readR = ()-> read(lock);
+////        Runnable readR = ()-> read(readLock);
+////
+////        //Runnable writeR = ()->write(lock, new Random().nextInt());
+////        Runnable writeR = ()->write(writeLock, new Random().nextInt());
+////
+////        for(int i=0; i<18; i++) new Thread(readR).start();
+////        for(int i=0; i<2; i++) new Thread(writeR).start();
 
-        //Runnable writeR = ()->write(lock, new Random().nextInt());
-        Runnable writeR = ()->write(writeLock, new Random().nextInt());
-
-        for(int i=0; i<18; i++) new Thread(readR).start();
-        for(int i=0; i<2; i++) new Thread(writeR).start();
-
+        for(int i=0; i<18; i++) {
+            new Thread("Thread-"+i){
+                @Override
+                public void run() {
+                    read(readLock);
+                    write(writeLock,new Random().nextInt());
+                };
+            }.start();
+        }
+//        for(int i=0; i<3; i++) {
+//            new Thread("Thread-"+i){
+//                @Override
+//                public void run() {
+////                    write(writeLock,new Random().nextInt());
+//
+//
+//                    synchronized (obj){
+//                        for(int j=0; j<20; j++) {
+//                            System.out.println("j="+j);
+//                        }
+//                    }
+//                };
+//            }.start();
+//        }
 
     }
+    private static Object obj=new Object();
 }
