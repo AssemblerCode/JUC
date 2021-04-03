@@ -38,6 +38,7 @@ public class T13_TestLockSupport_cp {
     //    }
     public static void main(String[] args) {
         ReentrantLock lock = new ReentrantLock();
+
         lock.lock();
         Thread t = new Thread("t") {
             @Override
