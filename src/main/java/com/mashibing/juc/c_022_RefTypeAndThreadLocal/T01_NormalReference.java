@@ -3,7 +3,7 @@ package com.mashibing.juc.c_022_RefTypeAndThreadLocal;
 import java.io.IOException;
 
 public class T01_NormalReference {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         M m = new M();
         m = null;
         System.gc(); //DisableExplicitGC

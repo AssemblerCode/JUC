@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class T01_WithoutVolatile {
 
-	List lists = new ArrayList();
+	 volatile List lists = new ArrayList();
 
 	public void add(Object o) {
 		lists.add(o);
@@ -42,7 +42,10 @@ public class T01_WithoutVolatile {
 		}, "t1").start();
 		
 		new Thread(() -> {
+//			List list;
 			while(true) {
+//				list=c.lists;
+//				System.out.println("list=="+list.size());
 				if(c.size() == 5) {
 					break;
 				}

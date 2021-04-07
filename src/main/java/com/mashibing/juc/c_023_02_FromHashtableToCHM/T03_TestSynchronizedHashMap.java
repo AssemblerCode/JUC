@@ -90,5 +90,7 @@ public class T03_TestSynchronizedHashMap {
 
         end = System.currentTimeMillis();
         System.out.println(end - start);
+        m.size();
+        m.isEmpty();
     }
 }

@@ -4,9 +4,9 @@ import java.util.Random;
 import java.util.concurrent.Phaser;
 import java.util.concurrent.TimeUnit;
 
-public class T08_TestPhaser {
+public class TestPhaser {
     static Random r = new Random();
-    static MarriagePhaser phaser = new MarriagePhaser();
+    static T08_TestPhaser.MarriagePhaser phaser = new T08_TestPhaser.MarriagePhaser();
 
     static void milliSleep(int milli) {
         try {
@@ -22,41 +22,47 @@ public class T08_TestPhaser {
 
         for(int i=0; i<5; i++) {
             final int nameIndex = i;
-            new Thread(()->{
+            new Thread(){
+                @Override
+                public void run() {
 
-                Person p = new Person("person " + nameIndex);
-                p.arrive();
-                phaser.arriveAndAwaitAdvance();
+                    T08_TestPhaser.Person p = new T08_TestPhaser.Person("person " + nameIndex);
+                    p.arrive();
+                    phaser.arriveAndAwaitAdvance();
 
-                p.eat();
-                phaser.arriveAndAwaitAdvance();
+                    p.eat();
+                    phaser.arriveAndAwaitAdvance();
 
-                p.leave();
-                phaser.arriveAndAwaitAdvance();
-            }).start();
+                    p.leave();
+                    phaser.arriveAndAwaitAdvance();
+                }
+            }.start();
         }
 
     }
 
+
     static class MarriagePhaser extends Phaser {
         @Override
         protected boolean onAdvance(int phase, int registeredParties) {
+            System.out.println("registeredParties"+registeredParties);
             switch (phase) {
                 case 0:
-                    System.out.println("ËùÓĞÈËµ½ÆëÁË£¡");
+                    System.out.println("æ‰€æœ‰äººåˆ°é½äº†ï¼");
                     return false;
                 case 1:
-                    System.out.println("ËùÓĞÈË³ÔÍêÁË£¡");
+                    System.out.println("æ‰€æœ‰äººåƒå®Œäº†ï¼");
                     return false;
                 case 2:
-                    System.out.println("ËùÓĞÈËÀë¿ªÁË£¡");
-                    System.out.println("»éÀñ½áÊø£¡");
+                    System.out.println("æ‰€æœ‰äººç¦»å¼€äº†ï¼");
+                    System.out.println("å©šç¤¼ç»“æŸï¼");
                     return true;
                 default:
                     return true;
             }
         }
     }
+
 
     static class Person {
         String name;
@@ -67,20 +73,19 @@ public class T08_TestPhaser {
 
         public void arrive() {
             milliSleep(r.nextInt(1000));
-            System.out.printf("%s µ½´ïÏÖ³¡£¡\n", name);
+            System.out.printf("%s åˆ°è¾¾ç°åœºï¼\n", name);
         }
 
         public void eat() {
             milliSleep(r.nextInt(1000));
-            System.out.printf("%s ³ÔÍê!\n", name);
+            System.out.printf("%s åƒå®Œ!\n", name);
         }
 
         public void leave() {
             milliSleep(r.nextInt(1000));
-            System.out.printf("%s Àë¿ª£¡\n", name);
+            System.out.printf("%s ç¦»å¼€ï¼\n", name);
         }
 
     }
+
 }
-
-

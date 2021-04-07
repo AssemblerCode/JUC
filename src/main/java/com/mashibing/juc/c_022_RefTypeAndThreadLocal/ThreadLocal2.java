@@ -26,6 +26,7 @@ public class ThreadLocal2 {
 			}
 			
 			System.out.println(tl.get());
+
 		}).start();
 		
 		new Thread(()->{
