@@ -29,7 +29,7 @@ public class T10_TestReadWriteLock {
         }
     }
 
-    public static void write(Lock lock, int v) {
+    public  static void write(Lock lock, int v) {
         try {
             lock.lock();
             Thread.sleep(1000);

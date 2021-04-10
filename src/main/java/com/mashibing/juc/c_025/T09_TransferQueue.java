@@ -15,6 +15,8 @@ public class T09_TransferQueue {
 		}).start();
 		
 		strs.transfer("aaa");
+
+		System.out.println("hhh");
 		
 		//strs.put("aaa");
 
