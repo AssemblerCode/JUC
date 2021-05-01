@@ -15,7 +15,15 @@ public class T06_00_Future {
 		}); //new Callable () { Integer call();}
 		
 		new Thread(task).start();
-		
+		System.out.println(task.get()); //×èÈû
+
+		task=new FutureTask(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				return 10000;
+			}
+		});
+		new Thread(task).start();
 		System.out.println(task.get()); //×èÈû
 
 
